@@ -24,7 +24,7 @@ func main() {
 func initializeAPI() (*chi.Mux, *postgres.Db) {
 	router := chi.NewRouter()
 
-	db, err := postgres.New(postgres.ConnString("localhost", 5432, "postgres", "postgres", "go_graph_db"))
+	db, err := postgres.New(postgres.ConnString("graphgo_database", 5432, "docker", "docker", "go_graph_db"))
 	if err != nil {
 		log.Fatal(err)
 	}

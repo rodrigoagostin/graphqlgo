@@ -1,0 +1,32 @@
+version: "3"
+services:
+  app:
+    build: .
+    container_name: graphgo_container
+    environment:
+      - WAIT_HOSTS=graphgo_database:5432
+    depends_on:
+      - graphgo_database
+    networks:
+      - graphgo_network
+    ports:
+      - "4000:4000"
+    expose:
+      - "4000"
+  graphgo_database:
+    image: postgres:12.2
+    restart: always
+    environment:
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=go_graph_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./db_data:/var/lib/postgresql/data
+    networks:
+      - graphgo_network
+
+networks:
+  graphgo_network:
+    driver: bridge
